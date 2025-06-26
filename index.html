@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TV Show Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Left Sidebar: Categories -->
+    <aside class="sidebar-left">
+      <h2>Genres</h2>
+      <ul id="categoryList">
+        <li class="active">All</li>
+        <li>Drama</li>
+        <li>Comedy</li>
+        <li>Sci-Fi</li>
+        <li>Action</li>
+        <li>Reality</li>
+      </ul>
+    </aside>
+
+    <!-- Main Section: Show Cards -->
+    <main class="main-content" id="showGrid">
+      <!-- Show cards go here -->
+    </main>
+
+    <!-- Right Sidebar: Show Details -->
+    <aside class="sidebar-right hidden" id="detailsPanel">
+      <!-- Show info will appear here -->
+      <button id="closeDetails">Close ❌</button>
+      <div id="detailsContent">
+        <!-- Dynamically injected -->
+      </div>
+    </aside>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
