@@ -209,3 +209,77 @@ header h1 {
 .hidden {
   display: none;
 }
+
+/* ========== Mobile Layout: Bottom Sidebar ========== */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar-left {
+    order: 2;
+    width: 100%;
+    height: auto;
+    background: #1f1e22;
+    padding: 0.5rem 1rem 2rem;
+    border-top: 2px solid #444;
+  }
+
+  .sidebar-left h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .sidebar-left ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar-left li {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    background: #29282C;
+    border-radius: 20px;
+    transition: 0.3s;
+  }
+
+  .sidebar-left li:hover,
+  .sidebar-left li.active {
+    background: #F00000;
+    color: #fff;
+  }
+
+  .main-content {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    padding: 0.5rem;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .header-right input {
+    width: 100%;
+  }
+
+  .movie-info h2 {
+    font-size: 2rem;
+  }
+
+  .buttons a {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+
+  #backButton {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
