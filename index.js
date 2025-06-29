@@ -1,74 +1,109 @@
 const API_URL = "https://api.tvmaze.com/shows";
-const showGrid = document.getElementById("showGrid");
-const detailsPanel = document.getElementById("detailsPanel");
-const detailsContent = document.getElementById("detailsContent");
-const closeDetails = document.getElementById("closeDetails");
-const categoryList = document.getElementById("categoryList");
 
-// Store fetched shows
+const showGrid = document.getElementById("showGrid");
+const categoryList = document.getElementById("categoryList");
+const detailView = document.getElementById("show-detail-view");
+const appContainer = document.querySelector(".app-container");
+
+// Detail references
+const titleEl = document.getElementById("detailTitle");
+const genresEl = document.getElementById("detailGenres");
+const summaryEl = document.getElementById("detailSummary");
+const ratingEl = document.getElementById("ratingBadge");
+const trailerBtn = document.getElementById("trailerBtn");
+const officialBtn = document.getElementById("officialBtn");
+const castListEl = document.getElementById("castList");
+
+const searchInput = document.getElementById("searchInput");
+
 let allShows = [];
 
-// Fetch shows from TVmaze
+// ========== Fetch Shows ==========
 async function fetchShows() {
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
-    allShows = data.slice(0, 100); // Limit to 100 shows for speed
+    allShows = data.slice(0, 100);
     renderShows(allShows);
-  } catch (error) {
-    console.error("Error fetching shows:", error);
+  } catch (err) {
+    console.error("Failed to fetch shows:", err);
   }
 }
 
-// Render show cards
+// ========== Render Shows ==========
 function renderShows(shows) {
   showGrid.innerHTML = "";
-  shows.forEach((show) => {
+  shows.forEach(show => {
     const card = document.createElement("div");
     card.className = "card";
+    const imgSrc = show.image?.medium || "https://via.placeholder.com/210x295?text=No+Image";
+    const genres = show.genres && show.genres.length ? show.genres.join(', ') : "No genres";
     card.innerHTML = `
-      <img src="${show.image?.medium || 'https://via.placeholder.com/150'}" alt="${show.name}" />
+      <img src="${imgSrc}" alt="${show.name}" />
       <h4>${show.name}</h4>
-      <p>${show.genres.join(', ')}</p>
+      <p>${genres}</p>
     `;
     card.addEventListener("click", () => showDetails(show));
     showGrid.appendChild(card);
   });
 }
 
-// Show right panel with full details
-function showDetails(show) {
-  detailsContent.innerHTML = `
-    <h2>${show.name}</h2>
-    <img src="${show.image?.original || 'https://via.placeholder.com/300'}" width="100%" />
-    <p><strong>Genres:</strong> ${show.genres.join(', ')}</p>
-    <p><strong>Rating:</strong> ${show.rating?.average || "N/A"}</p>
-    <p>${show.summary || "No summary available."}</p>
-    <a href="${show.officialSite || show.url}" target="_blank">🌐 Watch / Learn More</a>
-  `;
-  detailsPanel.classList.remove("hidden");
+// ========== Show Details ==========
+async function showDetails(show) {
+  detailView.style.backgroundImage = `url(${show.image?.original || ""})`;
+  detailView.classList.remove("hidden");
+  detailView.classList.add("show");
+  appContainer.style.display = "none";
+
+  titleEl.textContent = show.name;
+  genresEl.textContent = show.genres && show.genres.length ? show.genres.join(', ') : "No genres";
+  summaryEl.innerHTML = show.summary || "No summary available.";
+  ratingEl.textContent = show.rating?.average || "N/A";
+
+  const trailerSearch = `https://www.youtube.com/results?search_query=${encodeURIComponent(show.name + ' trailer')}`;
+  trailerBtn.href = trailerSearch;
+  officialBtn.href = show.officialSite || show.url;
+
+  // Fetch cast
+  try {
+    const castRes = await fetch(`https://api.tvmaze.com/shows/${show.id}/cast`);
+    const castData = await castRes.json();
+    const castNames = castData
+      .map(member => member?.person?.name || member?.actor?.name)
+      .filter(Boolean)
+      .slice(0, 5)
+      .join(', ');
+    castListEl.innerHTML = `<strong>Main Cast:</strong> ${castNames || "N/A"}`;
+  } catch (err) {
+    castListEl.textContent = "Main Cast: N/A";
+  }
 }
 
-// Handle category filter clicks
+// ========== Back Button ==========
+document.getElementById("backButton").addEventListener("click", () => {
+  detailView.classList.add("hidden");
+  detailView.classList.remove("show");
+  appContainer.style.display = "flex";
+});
+
+// ========== Genre Filter ==========
 categoryList.addEventListener("click", (e) => {
   if (e.target.tagName === "LI") {
-    const selectedGenre = e.target.innerText;
-    document.querySelectorAll("#categoryList li").forEach((li) => li.classList.remove("active"));
+    const genre = e.target.innerText;
+    document.querySelectorAll("#categoryList li").forEach(li => li.classList.remove("active"));
     e.target.classList.add("active");
 
-    if (selectedGenre === "All") {
-      renderShows(allShows);
-    } else {
-      const filtered = allShows.filter((show) => show.genres.includes(selectedGenre));
-      renderShows(filtered);
-    }
+    const filtered = genre === "All" ? allShows : allShows.filter(show => show.genres.includes(genre));
+    renderShows(filtered);
   }
 });
 
-// Close detail panel
-closeDetails.addEventListener("click", () => {
-  detailsPanel.classList.add("hidden");
+// ========== Search Filter ==========
+searchInput.addEventListener("input", () => {
+  const searchTerm = searchInput.value.toLowerCase();
+  const filtered = allShows.filter(show => show.name.toLowerCase().includes(searchTerm));
+  renderShows(filtered);
 });
 
-// Init
+// ========== Init ==========
 fetchShows();

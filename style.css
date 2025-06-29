@@ -1,3 +1,4 @@
+/* ========== Global ========== */
 * {
   margin: 0;
   padding: 0;
@@ -5,84 +6,206 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: #29282C;
+  color: #fff;
   height: 100vh;
   overflow: hidden;
 }
 
-.app-container {
+/* ========== Header ========== */
+header {
+  background: linear-gradient(135deg, #29282C 50%, #F00000 100%);
   display: flex;
-  height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
 }
 
-/* Left Sidebar */
+header h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.header-right input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* ========== Layout ========== */
+.app-container {
+  display: flex;
+  height: calc(100vh - 72px);
+}
+
+/* ========== Sidebar Left ========== */
 .sidebar-left {
   width: 200px;
-  background-color: #2a4d69;
-  color: white;
+  background: #29282C;
+  color: #fff;
   padding: 1rem;
   overflow-y: auto;
 }
 
 .sidebar-left h2 {
+  font-family: 'Dancing Script', cursive;
+  color: #F7BB0E;
   margin-bottom: 1rem;
 }
 
-.sidebar-left ul {
-  list-style: none;
-}
-
 .sidebar-left li {
-  padding: 0.5rem;
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0.4rem;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 5px;
+  transition: 0.3s;
 }
 
 .sidebar-left li:hover,
 .sidebar-left li.active {
-  background-color: #1e3a56;
+  background: #444;
 }
 
-/* Main Content */
+/* ========== Main Content Grid ========== */
 .main-content {
   flex: 1;
+  background: #fdf6f9;
   padding: 1rem;
-  background: #f4f4f4;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1rem;
   overflow-y: auto;
+  color: #29282C;
 }
 
 .card {
-  background: white;
-  padding: 0.5rem;
+  background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 0.5rem;
+  text-align: center;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .card:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
-/* Right Sidebar */
-.sidebar-right {
-  width: 300px;
-  background: #fff;
-  border-left: 1px solid #ccc;
-  padding: 1rem;
+.card img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.card h4 {
+  margin: 0.5rem 0 0.2rem;
+}
+
+/* ========== Detail View ========== */
+#show-detail-view {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background-size: cover;
+  background-position: center;
+  z-index: 1000;
+}
+
+#show-detail-view.show {
+  display: block;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.75);
+  height: 100%;
+  width: 100%;
   overflow-y: auto;
-  position: relative;
+  padding: 2rem;
+  box-sizing: border-box;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* ========== Movie Info Block ========== */
+.movie-info {
+  max-width: 600px;
+  text-align: center;
+  padding-bottom: 4rem;
+}
+
+.movie-info h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Dancing Script', cursive;
+}
+
+#ratingBadge {
+  background: #F7BB0E;
+  color: #29282C;
+  font-weight: bold;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.movie-info p {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+#castList {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #F7BB0E;
+}
+
+/* ========== Buttons ========== */
+.buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.buttons a {
+  background: #F00000;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.buttons a:hover {
+  background: #cc0000;
+}
+
+/* ========== Back Button ========== */
+#backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #29282C;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* ========== Utility ========== */
 .hidden {
   display: none;
-}
-
-#closeDetails {
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }

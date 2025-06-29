@@ -4,36 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bingio</title>
-  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header>
+    <h1>Bingio</h1>
+    <div class="header-right">
+      <input type="text" id="searchInput" placeholder="Search shows..." />
+    </div>
+  </header>
+
   <div class="app-container">
-    <!-- Left Sidebar: Categories -->
+    <!-- Sidebar -->
     <aside class="sidebar-left">
       <h2>Genres</h2>
       <ul id="categoryList">
         <li class="active">All</li>
         <li>Drama</li>
         <li>Comedy</li>
-        <li>Sci-Fi</li>
+        <li>Science-Fiction</li>
         <li>Action</li>
         <li>Romance</li>
       </ul>
     </aside>
 
-    <!-- Main Section: Show Cards -->
-    <main class="main-content" id="showGrid">
-      <!-- Show cards go here -->
-    </main>
+    <!-- Main Grid -->
+    <main class="main-content" id="showGrid"></main>
+  </div>
 
-    <!-- Right Sidebar: Show Details -->
-    <aside class="sidebar-right hidden" id="detailsPanel">
-      <!-- Show info will appear here -->
-      <button id="closeDetails">Close ❌</button>
-      <div id="detailsContent">
-        <!-- Dynamically injected -->
+  <!-- Detail Page -->
+  <div id="show-detail-view" class="hidden">
+    <div class="overlay">
+      <button id="backButton">← Back</button>
+      <div class="movie-info">
+        <h2 id="detailTitle"></h2>
+        <span id="ratingBadge"></span>
+        <p id="detailGenres"></p>
+        <p id="detailSummary"></p>
+        <div id="castList"></div>
+        <div class="buttons">
+          <a id="trailerBtn" href="#" target="_blank">▶ Watch Trailer</a>
+          <a id="officialBtn" href="#" target="_blank">🌐 Official Site</a>
+        </div>
       </div>
-    </aside>
+    </div>
   </div>
 
   <script src="index.js"></script>
