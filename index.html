@@ -11,11 +11,11 @@
   <header>
     <h1>Bingio</h1>
     <div class="header-right">
-      <input type="text" id="searchInput" placeholder="Search shows..." />
+      <input type="text" id="searchInput" placeholder="Search shows..." aria-label="Search Shows" />
     </div>
   </header>
 
-  <div class="app-container">
+  <div class="app-container" role="main">
     <!-- Sidebar -->
     <aside class="sidebar-left">
       <h2>Genres</h2>
@@ -30,7 +30,7 @@
     </aside>
 
     <!-- Main Grid -->
-    <main class="main-content" id="showGrid"></main>
+    <main class="main-content" id="showGrid" role="region" aria-label="TV Shows Grid"></main>
   </div>
 
   <!-- Detail Page -->

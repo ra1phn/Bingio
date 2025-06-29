@@ -34,18 +34,26 @@ async function fetchShows() {
 function renderShows(shows) {
   showGrid.innerHTML = "";
   shows.forEach(show => {
-    const card = document.createElement("div");
-    card.className = "card";
-    const imgSrc = show.image?.medium || "https://via.placeholder.com/210x295?text=No+Image";
-    const genres = show.genres && show.genres.length ? show.genres.join(', ') : "No genres";
-    card.innerHTML = `
-      <img src="${imgSrc}" alt="${show.name}" />
-      <h4>${show.name}</h4>
-      <p>${genres}</p>
-    `;
-    card.addEventListener("click", () => showDetails(show));
+    const card = createShowCard(show);
     showGrid.appendChild(card);
   });
+}
+
+function createShowCard(show) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const imgSrc = show.image?.medium || "https://via.placeholder.com/210x295?text=No+Image";
+  const genres = show.genres?.length ? show.genres.join(', ') : "No genres";
+
+  card.innerHTML = `
+    <img src="${imgSrc}" alt="${show.name || 'TV Show Poster'}" />
+    <h4>${show.name}</h4>
+    <p>${genres}</p>
+  `;
+
+  card.addEventListener("click", () => showDetails(show));
+  return card;
 }
 
 // ========== Show Details ==========
@@ -56,7 +64,7 @@ async function showDetails(show) {
   appContainer.style.display = "none";
 
   titleEl.textContent = show.name;
-  genresEl.textContent = show.genres && show.genres.length ? show.genres.join(', ') : "No genres";
+  genresEl.textContent = show.genres?.length ? show.genres.join(', ') : "No genres";
   summaryEl.innerHTML = show.summary || "No summary available.";
   ratingEl.textContent = show.rating?.average || "N/A";
 
