@@ -65,11 +65,15 @@ Bingio is a sleek and responsive Single Page Application (SPA) that lets users b
 
 ---
 
-## 🚀 Live Demo (Optional)
+## 🚀 Live Demo 
 
-> _Link goes here if deployed to GitHub Pages or Netlify_
+Click here
 
 ---
+
+## 📊 PowerPoint Presentation
+
+Link: [Click here to view presentation](https://docs.google.com/presentation/d/1vYFr1oIzFs98lqbM00YLBgPlOIb4cFdo/edit?usp=sharing&ouid=104772813761479379398&rtpof=true&sd=true)
 
 ## 🧠 Author
 
@@ -79,4 +83,4 @@ Bingio is a sleek and responsive Single Page Application (SPA) that lets users b
 
 ## 📜 License
 
-This project is for educational purposes and follows the guidelines of the Moringa School Phase 1 Project.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
