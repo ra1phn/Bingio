@@ -67,7 +67,7 @@ Bingio is a sleek and responsive Single Page Application (SPA) that lets users b
 
 ## 🚀 Live Demo 
 
-Click here
+Link: [Click here to view live Demo video]()
 
 ---
 
